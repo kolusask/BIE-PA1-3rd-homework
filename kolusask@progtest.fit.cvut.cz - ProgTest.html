@@ -1,0 +1,1037 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml-transitional.dtd">
+<!-- saved from url=(0062)https://progtest.fit.cvut.cz/?X=Task&Cou=251&Tgr=1587&Tsk=1574 -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>kolusask@progtest.fit.cvut.cz - ProgTest</title>
+  
+  <link href="./kolusask@progtest.fit.cvut.cz - ProgTest_files/css.css" rel="stylesheet" type="text/css">
+  <script src="./kolusask@progtest.fit.cvut.cz - ProgTest_files/shared.js" language="JavaScript" type="text/javascript"></script>
+  
+ </head>
+ <body bgcolor="#828273" text="#000000">
+  <table width="100%" border="0" cellpadding="0" cellspacing="0">
+   <tbody><tr height="25">
+    <td align="left" bgcolor="#00ff00"><span class="navLink"><a class="navLink" href="https://progtest.fit.cvut.cz/?X=Main">ProgTest</a>&nbsp;&nbsp;►&nbsp;&nbsp;<a class="navLink" href="https://progtest.fit.cvut.cz/?X=Course&amp;Cou=251">BIE-PA1 (18/19 ZS)</a>&nbsp;&nbsp;►&nbsp;&nbsp;<a class="navLink" href="https://progtest.fit.cvut.cz/?X=TaskGrp&amp;Cou=251&amp;Tgr=1587">Homework 03</a>&nbsp;&nbsp;►&nbsp;&nbsp;<b>Hyperloop II</b></span></td>
+    <td align="right" bgcolor="#00ff00"><a class="navLink" href="https://progtest.fit.cvut.cz/?X=Logout">Logout</a></td>
+   </tr>
+  </tbody></table>
+<br>
+
+
+
+
+ <br>
+ <br>
+   <center>
+   <div class="topLayout">
+    <div class="outBox">
+     <table class="header" width="100%" cellpadding="0" cellspacing="0">
+      <tbody><tr>
+       <td class="header"><b>Hyperloop II</b></td>
+      </tr>
+     </tbody></table>
+    </div>
+   </div>
+  </center>
+ <form name="form1" method="post" action="https://progtest.fit.cvut.cz/?X=TaskU&amp;Cou=251&amp;Tgr=1587&amp;Tsk=1574" enctype="multipart/form-data">
+  <center>
+    <div class="topLayout">
+     <div class="outBox">
+      <table width="100%" border="0" cellspacing="0" cellpadding="2" id="maintable">
+       <colgroup><col width="200">
+       <col>
+       <col width="130">
+
+       </colgroup><tbody><tr>
+        <td class="ltCell" align="left"><b>Submission deadline:</b></td>
+        <td class="tCell" align="left"><b>2018-11-25 23:59:59</b></td>
+        <td class="rtCell" align="right" id="countdown">&nbsp;</td>
+       </tr>
+
+       <tr>
+        <td class="lCell" align="left"><b>Late submission with malus:</b></td>
+        <td class="rCell" align="left" colspan="2"><b>2019-01-06 23:59:59</b> (Late submission malus: 100.0000 %)</td>
+       </tr>
+
+       <tr>
+        <td class="lCell" align="left"><b>Evaluation:</b></td>
+        <td class="rCell" colspan="2" align="left"><b>7.1500</b></td>
+       </tr>
+       <tr>
+        <td class="lCell" align="left"><b>Max. assessment:</b></td>
+        <td class="rCell" colspan="2" align="left"><b>5.0000</b> (Without bonus points)</td>
+       </tr>
+       <tr>
+        <td class="lCell" align="left"><b>Submissions:</b></td>
+        <td class="rCell" colspan="2" align="left">6 /  20 Free retries + 10 Penalized retries (-10 % penalty each retry)</td>
+       </tr>
+
+       <tr>
+        <td class="lbCell" align="left"><b>Advices:</b></td>
+        <td class="rbCell" colspan="2" align="left">2 / 2 Advices for free + 2 Advices with a penalty (-10 % penalty each advice)</td>
+       </tr>
+
+       <tr>
+        <td class="lrtbCell" colspan="3" align="left"><p>The task is to implement a function (not a whole program, 
+just a function) that plans hyperloop tracks. The function will 
+be given the lengths of the available track segments and the length of the 
+desired track. Based on these parameters, the function computes 
+whether the track can be constructed, or not. This problem is an extension 
+of the simple variant. Up to three segments are combined in this version.</p>
+
+<p>The hyperloop track is composed of individual segments of certain lengths.
+We assume there are three manufacturers, each of them produces segments of one fixed 
+length. Each pair of adjacent segments must be connected by exactly one bulkhead; the whole 
+track must start and end with a bulkhead. All bulkheads have the same length. The segments 
+and bulkheads must be used in their original length, i.e., they cannot be cut or 
+extended. The function is given the lengths of the segments, bulkheads, and the 
+length of the track. Based on the parameters, the function decides whether there 
+is a valid combination of segments and bulkheads that gives the exact length of 
+the desired track. If the track can be constructed, the function counts how many 
+different variants are available.</p>
+
+<p>Valid combinations of bulkheads and segments are:</p>
+<pre>bulkhead
+bulkhead segment bulkhead
+bulkhead segment bulkhead segment bulkhead
+bulkhead segment bulkhead segment bulkhead segment bulkhead
+bulkhead segment bulkhead segment bulkhead segment bulkhead segment bulkhead
+...
+</pre>
+
+<p>The required interface is:</p>
+<pre>unsigned long long int  hyperloop                          ( unsigned long long int len, 
+                                                             unsigned int s1, 
+                                                             unsigned int s2, 
+                                                             unsigned int s3, 
+                                                             unsigned int bulkhead, 
+                                                             unsigned int * c1, 
+                                                             unsigned int * c2, 
+                                                             unsigned int * c3 );
+</pre>
+<dl>
+ <dt><b><tt>len</tt></b></dt>
+ <dd>an input parameter - the length of the track being constructed,</dd>
+ 
+ <dt><b><tt>s1, s2, s3</tt></b></dt>
+ <dd>input parameters - the lengths of the segments produced by the first/second/third manufacturer. 
+   The parameter may be zero, meaning the segments from the respective producer(s) are unavailable 
+   and cannot be used (i.e., only the segments from the other manufacturers),</dd>
+
+ <dt><b><tt>bulkhead</tt></b></dt>
+ <dd>an input parameter - the length of the bulkhead. The parameter may be zero, meaning the 
+   bulkheads do not add to the overall length of the track,</dd>
+
+ <dt><b><tt>c1, c2, c3</tt></b></dt>
+ <dd>output parameters - the required number of segments from the first/second/third manufacturer. 
+   If the function cannot find the solution, it shall not modify this parameter,</dd>
+
+ <dt><b>return value</b></dt>
+ <dd><p>is either zero or the number of different solutions found. 
+   If the function does not succeed (i.e., no valid combination of segments and bulkheads results 
+   in the desired track length), the return value must be 0. Otherwise, if some solutions do exist, 
+   the function returns the number of different solutions that lead to the desired track length. The 
+   output parameters <tt>c1</tt>, <tt>c2</tt>, and <tt>c3</tt> must be set to some valid solution.</p>
+
+   <p>Two solutions are considered identical if the required number of segments is the same for 
+    each segment length. Conversely, two solutions are considered different if they differ in the 
+    number of segments in at least one length. In other words:</p>
+   <ul>
+    <li>the order of segments in the track is irrelevant. For example:
+     <pre>      len = 27
+      s1 = 3
+      s2 = 9
+      s3 = 1
+      bulkhead = 5
+     </pre>
+     gives the following 5 combinations:
+     <pre>       [bulkhead] [segment 3] [bulkhead] [segment 3] [bulkhead] [segment 1] [bulkhead]
+       [bulkhead] [segment 3] [bulkhead] [segment 1] [bulkhead] [segment 3] [bulkhead]
+       [bulkhead] [segment 1] [bulkhead] [segment 3] [bulkhead] [segment 3] [bulkhead]
+       
+       [bulkhead] [segment 3] [bulkhead] [segment 9] [bulkhead]
+       [bulkhead] [segment 9] [bulkhead] [segment 3] [bulkhead]
+     </pre>
+      Of the above combinations, the first three are equivalent (three segments of length 3, 
+      zero segments of length 9, and one segment of length 1) and the last two combinations 
+      are equivalent (one segment of length 3, one segment of length 9, and zero segments of length 1):
+     <pre>       2 * s1 + 0 * s2 + 1 * s3 + 4 * bulkhead = 27
+       1 * s1 + 1 * s2 + 0 * s3 + 3 * bulkhead = 27
+
+       hyperloop ( 27, 3, 9, 1, 5, &amp;c1, &amp;c2, &amp;c3 ) == 2
+     </pre>
+    </li>
+    <li>if two (or all three) manufacturers produce segments of the same length, then the segments are indistinguishable.
+     For example:
+     <pre>       len = 40
+       s1 = 10
+       s2 = 10
+       s3 = 20
+       bulkhead = 0
+     </pre>
+     There is a total of 9 possible combinations:
+     <pre>       4 * s1 + 0 * s2 + 0 * s3 + 5 * bulkhead = 40
+       3 * s1 + 1 * s2 + 0 * s3 + 5 * bulkhead = 40
+       2 * s1 + 2 * s2 + 0 * s3 + 5 * bulkhead = 40
+       1 * s1 + 3 * s2 + 0 * s3 + 5 * bulkhead = 40
+       0 * s1 + 4 * s2 + 0 * s3 + 5 * bulkhead = 40
+       
+       2 * s+ + 0 * s2 + 1 * s3 + 4 * bulkhead = 40
+       1 * s+ + 1 * s2 + 1 * s3 + 4 * bulkhead = 40
+       0 * s+ + 2 * s2 + 1 * s3 + 4 * bulkhead = 40
+       
+       0 * s+ + 0 * s2 + 2 * s3 + 3 * bulkhead = 40
+     </pre>
+     Of them, only three are considered different. The first solution requires 
+     four segments of length 10 and zero segments of length 20. The second solution 
+     requires two segments of length 10 and one segment of length 20. Finally, the third 
+     solution requires zero segments of length 10 and two segments of length 20: 
+     <pre>      hyperloop ( 40, 10, 10, 20, 0, &amp;c1, &amp;c2, &amp;c3 ) == 3
+     </pre>
+    </li>
+   </ul>
+  </dd>   
+</dl>    
+
+<p>Submit a source file with the implementation of <tt>hyperloop</tt>. 
+Further, the source file must include your auxiliary functions which are 
+called from the required function. The <tt>hyperloop</tt> function will 
+be called from the testing environment, thus, it is important to adhere 
+to the required interface. Use the attached sample code 
+as a basis for your development, complete the required function and add 
+your required auxiliary functions. There is an example <tt>main</tt> with 
+some test in the attached code. These values will be used in the basic test. 
+Please note the header files as well as <tt>main</tt> is nested in a 
+conditional compile block (<tt>#ifdef/#endif</tt>). Please keep these 
+conditional compile block in place. They are present to simplify the 
+development. When compiling on your computer, the headers and <tt>main</tt> 
+will be present as usual. On the other hand, the header and <tt>main</tt> 
+will "disappear" when compiled by Progtest. Thus, your testing <tt>main</tt> 
+will not interfere with the testing environment's <tt>main</tt>.</p>
+
+<p>Your function will be executed in a limited environment. There are limits 
+on both time and memory. The exact limits are shown in the test log of the 
+reference. A reasonable implementation of the naive algorithm shall pass
+both limits without any problems. There is a bonus test, the bonus test
+requires an efficient algorithm to pass the time limit.</p>
+
+<b>Advice:</b><br>
+<ul>
+ <li>Download the attached sample code and use it as a base for your development.</li>
+
+ <li>The <tt>main</tt> function in your program may be modified (e.g. new tests may be included).
+     The conditional compile block must remain, however.</li>
+
+ <li>There is <tt>assert</tt> macro used in the example <tt>main</tt> function. If the 
+   value passed to <tt>assert</tt> is nonzero (true), the macro does nothing. On the other 
+   hand, if the parameter is zero, the macro stops the execution and reports line, where the 
+   test did not match (and shall be fixed). Thus, the program ends silently when your 
+   implementation passes the tests correctly.</li>
+
+ <li>The total track length and the resulting number of different solutions may exceed the 
+   range of the <tt>int</tt> data type. Therefore, the interface uses 
+   <tt>unsigned long long int</tt> data type instead. Functions <tt>printf</tt> and <tt>scanf</tt> 
+   use <tt>%llu</tt> conversion to display/read values of this data type.</li> 
+
+ <li>Do not try to generate all possible permutations and subsequently de-duplicate them. 
+  Generate only the unique solutions. Arrays are not required to solve the problem.
+  Indeed, the array would add unnecessary complexity (it would have to be dynamically 
+  allocated) and the de-duplication would be too time expensive.</li>
+  
+ <li>The <tt>unsigned long long int</tt> data type is an extension of the C90/C++03 standard; 
+  the data type is included in the newer standards. If the compiler uses the old standard, 
+  it displays warnings. Progtest compiler is configured to suppress this warning, the 
+  compilation includes <tt>-Wno-long-long</tt> flag.</li>
+</ul>
+</td>
+       </tr>
+
+
+       <tr>
+        <td class="ltbCell" colspan="2" align="left"><b>Sample data:</b></td>
+        <td class="rtbCell" align="center"><div class="but1 w120"><div class="but2"><a class="butLink" href="https://progtest.fit.cvut.cz/?X=TaskS&amp;Cou=251&amp;Tgr=1587&amp;Tsk=1574">Download</a></div></div></td>
+       </tr>
+
+
+
+
+
+
+
+
+
+
+
+      </tbody></table>
+     </div>
+    </div>
+
+
+ <br>
+ <div class="topLayout">
+  <div class="outBox">
+   <table width="100%" border="0" cellspacing="0" cellpadding="2" id="reftable">
+   <tbody><tr>
+    <td class="ltbSepCell" align="left"><input type="checkbox" name="SHOW_REF" onchange="showRefSolution()">&nbsp;<b>Reference</b></td>
+    <td class="rtbSepCell" align="right">&nbsp;</td>
+   </tr>
+   <tr style="display: none;">
+    <td class="lrtbCell" align="left" colspan="2"><ul><li><b>Evaluator: computer</b><ul><li>Program compiled</li><li>Test 'Basic test with sample input data': success<ul><li>result: 100.00 %, required: 100.00 %</li><li>Total run time: 0.000 s (limit: 1.000 s)</li><li>Mandatory test success, evaluation: 100.00 %</li></ul></li>
+<li>Test 'Borderline test': success<ul><li>result: 100.00 %, required: 25.00 %</li><li>Total run time: 0.001 s (limit: 2.000 s)</li><li>Optional test success, evaluation: 100.00 %</li></ul></li>
+<li>Test 'Random test': success<ul><li>result: 100.00 %, required: 25.00 %</li><li>Total run time: 0.005 s (limit: 1.999 s)</li><li>Optional test success, evaluation: 100.00 %</li></ul></li>
+<li>Test 'Bonus test (speed)': success<ul><li>result: 100.00 %, required: 100.00 %</li><li>Total run time: 0.197 s (limit: 2.000 s)</li><li>Bonus test - success, evaluation: 130.00 %</li></ul></li>
+<li>Overall ratio: 130.00 % (= 1.00 * 1.00 * 1.00 * 1.30)</li></ul></li><li>Total percent: 130.00 %</li><li>Early submission bonus: 0.50</li><li>Total points: 1.30 * ( 5.00 + 0.50 ) = 7.15</li></ul></td>
+   </tr>
+    <tr style="display: none;">
+  <td class="ltbCell" align="left"><b>SW metrics:</b></td>
+  <td class="rtbCell" colspan="2" align="left">
+   <table border="0" cellpadding="2">
+    <tbody><tr>
+     <td>&nbsp;</td>
+     <td class="ac">Total</td>
+     <td class="ac">Average</td>
+     <td class="ac">Maximum</td>
+     <td>Function name</td>
+    </tr>
+    <tr>
+     <td>Functions:</td>
+     <td class="ar"><b>5</b></td>
+     <td class="ar">--</td>
+     <td class="ar">--</td>
+     <td>--</td>
+    </tr>
+    <tr>
+     <td>Lines of code:</td>
+     <td class="ar"><b>149</b></td>
+     <td class="ar"><span class="textOk">29.80 ± 7.19</span></td>
+     <td class="ar"><span class="textOk">41</span></td>
+     <td><tt>hyperloop3</tt></td>
+    </tr>
+    <tr>
+     <td>Cyclomatic complexity:</td>
+     <td class="ar"><b>32</b></td>
+     <td class="ar"><span class="textOk">6.40 ± 2.42</span></td>
+     <td class="ar"><span class="textOk">9</span></td>
+     <td><tt>hyperloop3</tt></td>
+    </tr>
+   </tbody></table>
+  </td>
+ </tr>
+   </tbody></table>
+  </div>
+ </div>
+
+
+
+
+ <br>
+ <div class="topLayout">
+  <div class="outBox">
+   <table width="100%" border="0" cellspacing="0" cellpadding="2" id="maintable">
+    <colgroup><col width="200">
+    <col>
+    <col width="130">
+
+   </colgroup><tbody><tr>
+    <td class="ltbOkSepCell" align="left"><b>6</b></td>
+    <td class="tbOkSepCell" align="left"><b>2018-11-16 00:34:07</b></td>
+    <td class="rtbOkSepCell" align="center"><div class="but1 w120"><div class="but2"><a class="butLink" href="https://progtest.fit.cvut.cz/?X=TaskD&amp;Cou=251&amp;Tgr=1587&amp;Tsk=1574&amp;Sub=996296">Download</a></div></div></td>
+   </tr>
+   <tr>
+    <td class="ltCell" align="left"><b>Submission status:</b></td>
+    <td class="tCell" align="left">Evaluated</td>
+
+
+
+    <td class="rtbCell" rowspan="2">&nbsp;</td>
+
+
+   </tr>
+
+   <tr>
+    <td class="lbCell" align="left"><b>Evaluation:</b></td>
+    <td class="bCell" align="left">7.1500</td>
+   </tr>   <tr>
+    <td class="lrtbCell" colspan="3" align="left"><ul><li><b>Evaluator: computer</b><ul><li>Program compiled</li><li>Test 'Basic test with sample input data': success<ul><li>result: 100.00 %, required: 100.00 %</li><li>Total run time: 0.000 s (limit: 1.000 s)</li><li>Mandatory test success, evaluation: 100.00 %</li></ul></li>
+<li>Test 'Borderline test': success<ul><li>result: 100.00 %, required: 25.00 %</li><li>Total run time: 0.002 s (limit: 2.000 s)</li><li>Optional test success, evaluation: 100.00 %</li></ul></li>
+<li>Test 'Random test': success<ul><li>result: 100.00 %, required: 25.00 %</li><li>Total run time: 0.025 s (limit: 1.998 s)</li><li>Optional test success, evaluation: 100.00 %</li></ul></li>
+<li>Test 'Bonus test (speed)': success<ul><li>result: 100.00 %, required: 100.00 %</li><li>Total run time: 0.459 s (limit: 2.000 s)</li><li>Bonus test - success, evaluation: 130.00 %</li></ul></li>
+<li>Overall ratio: 130.00 % (= 1.00 * 1.00 * 1.00 * 1.30)</li></ul></li><li>Advices used: 2</li><li>Penalty due to advices: None (2 &lt;= 2 limit)</li><li>Total percent: 130.00 %</li><li>Early submission bonus: 0.50</li><li>Total points: 1.30 * ( 5.00 + 0.50 ) = 7.15</li></ul></td>
+   </tr> <tr>
+  <td class="ltbCell" align="left"><b>SW metrics:</b></td>
+  <td class="rtbCell" colspan="2" align="left">
+   <table border="0" cellpadding="2">
+    <tbody><tr>
+     <td>&nbsp;</td>
+     <td class="ac">Total</td>
+     <td class="ac">Average</td>
+     <td class="ac">Maximum</td>
+     <td>Function name</td>
+    </tr>
+    <tr>
+     <td>Functions:</td>
+     <td class="ar"><b>6</b></td>
+     <td class="ar">--</td>
+     <td class="ar">--</td>
+     <td>--</td>
+    </tr>
+    <tr>
+     <td>Lines of code:</td>
+     <td class="ar"><b>155</b></td>
+     <td class="ar"><span class="textOk">25.83 ± 17.14</span></td>
+     <td class="ar"><span class="textOk">47</span></td>
+     <td><tt>count_for_two</tt></td>
+    </tr>
+    <tr>
+     <td>Cyclomatic complexity:</td>
+     <td class="ar"><b>51</b></td>
+     <td class="ar"><span class="textOk">8.50 ± 6.87</span></td>
+     <td class="ar"><span class="textOk">16</span></td>
+     <td><tt>hyperloop</tt></td>
+    </tr>
+   </tbody></table>
+  </td>
+ </tr>   </tbody></table>
+  </div>
+ </div> <br>
+ <div class="topLayout">
+  <div class="outBox">
+   <table width="100%" border="0" cellspacing="0" cellpadding="2" id="maintable">
+    <colgroup><col width="200">
+    <col>
+    <col width="130">
+
+   </colgroup><tbody><tr>
+    <td class="ltbHalfSepCell" align="left"><b>5</b></td>
+    <td class="tbHalfSepCell" align="left"><b>2018-11-16 00:13:23</b></td>
+    <td class="rtbHalfSepCell" align="center"><div class="but1 w120"><div class="but2"><a class="butLink" href="https://progtest.fit.cvut.cz/?X=TaskD&amp;Cou=251&amp;Tgr=1587&amp;Tsk=1574&amp;Sub=996284">Download</a></div></div></td>
+   </tr>
+   <tr>
+    <td class="ltCell" align="left"><b>Submission status:</b></td>
+    <td class="tCell" align="left">Evaluated</td>
+
+
+
+    <td class="rtbCell" rowspan="2">&nbsp;</td>
+
+
+   </tr>
+
+   <tr>
+    <td class="lbCell" align="left"><b>Evaluation:</b></td>
+    <td class="bCell" align="left">5.2267</td>
+   </tr>   <tr>
+    <td class="lrtbCell" colspan="3" align="left"><ul><li><b>Evaluator: computer</b><ul><li>Program compiled</li><li>Test 'Basic test with sample input data': success<ul><li>result: 100.00 %, required: 100.00 %</li><li>Total run time: 0.001 s (limit: 1.000 s)</li><li>Mandatory test success, evaluation: 100.00 %</li></ul></li>
+<li>Test 'Borderline test': success<ul><li>result: 96.97 %, required: 25.00 %</li><li>Total run time: 0.005 s (limit: 2.000 s)</li><li>Optional test success, evaluation: 96.97 %</li><li>Failed (invalid output) <a href="javascript: unlockAdvice(&#39;?X=Unlock&amp;Cou=251&amp;Tgr=1587&amp;Tsk=1574&amp;Unl=L2960062&#39;)">[Unlock advice (67 B)]</a></li></ul></li>
+<li>Test 'Random test': success<ul><li>result: 98.00 %, required: 25.00 %</li><li>Total run time: 0.025 s (limit: 1.995 s)</li><li>CPU time: 0.028 s (limit: 1.996 s)</li><li>Optional test success, evaluation: 98.00 %</li><li>Failed (invalid output) <a href="javascript: unlockAdvice(&#39;?X=Unlock&amp;Cou=251&amp;Tgr=1587&amp;Tsk=1574&amp;Unl=L2960063&#39;)">[Unlock advice (68 B)]</a></li><li>Failed (invalid output) <a href="javascript: unlockAdvice(&#39;?X=Unlock&amp;Cou=251&amp;Tgr=1587&amp;Tsk=1574&amp;Unl=L2960064&#39;)">[Unlock advice (106 B)]</a></li></ul></li>
+<li>Test 'Bonus test (speed)': failed<ul><li>result: 90.00 %, required: 100.00 %</li><li>Total run time: 0.556 s (limit: 2.000 s)</li><li>Bonus test - failed, evaluation: No bonus awarded</li><li>Failed (invalid output) <a href="javascript: unlockAdvice(&#39;?X=Unlock&amp;Cou=251&amp;Tgr=1587&amp;Tsk=1574&amp;Unl=L2960065&#39;)">[Unlock advice (82 B)]</a></li></ul></li>
+<li>Overall ratio: 95.03 % (= 1.00 * 0.97 * 0.98)</li></ul></li><li>Advices used: 2</li><li>Penalty due to advices: None (2 &lt;= 2 limit)</li><li>Total percent: 95.03 %</li><li>Early submission bonus: 0.50</li><li>Total points: 0.95 * ( 5.00 + 0.50 ) = 5.23</li></ul></td>
+   </tr> <tr>
+  <td class="ltbCell" align="left"><b>SW metrics:</b></td>
+  <td class="rtbCell" colspan="2" align="left">
+   <table border="0" cellpadding="2">
+    <tbody><tr>
+     <td>&nbsp;</td>
+     <td class="ac">Total</td>
+     <td class="ac">Average</td>
+     <td class="ac">Maximum</td>
+     <td>Function name</td>
+    </tr>
+    <tr>
+     <td>Functions:</td>
+     <td class="ar"><b>6</b></td>
+     <td class="ar">--</td>
+     <td class="ar">--</td>
+     <td>--</td>
+    </tr>
+    <tr>
+     <td>Lines of code:</td>
+     <td class="ar"><b>152</b></td>
+     <td class="ar"><span class="textOk">25.33 ± 16.58</span></td>
+     <td class="ar"><span class="textOk">47</span></td>
+     <td><tt>count_for_two</tt></td>
+    </tr>
+    <tr>
+     <td>Cyclomatic complexity:</td>
+     <td class="ar"><b>50</b></td>
+     <td class="ar"><span class="textOk">8.33 ± 6.70</span></td>
+     <td class="ar"><span class="textOk">16</span></td>
+     <td><tt>main</tt></td>
+    </tr>
+   </tbody></table>
+  </td>
+ </tr>   </tbody></table>
+  </div>
+ </div> <br>
+ <div class="topLayout">
+  <div class="outBox">
+   <table width="100%" border="0" cellspacing="0" cellpadding="2" id="maintable">
+    <colgroup><col width="200">
+    <col>
+    <col width="130">
+
+   </colgroup><tbody><tr>
+    <td class="ltbOkSepCell" align="left"><b>4</b></td>
+    <td class="tbOkSepCell" align="left"><b>2018-11-15 23:48:17</b></td>
+    <td class="rtbOkSepCell" align="center"><div class="but1 w120"><div class="but2"><a class="butLink" href="https://progtest.fit.cvut.cz/?X=TaskD&amp;Cou=251&amp;Tgr=1587&amp;Tsk=1574&amp;Sub=996257">Download</a></div></div></td>
+   </tr>
+   <tr>
+    <td class="ltCell" align="left"><b>Submission status:</b></td>
+    <td class="tCell" align="left">Evaluated</td>
+
+
+
+    <td class="rtbCell" rowspan="2">&nbsp;</td>
+
+
+   </tr>
+
+   <tr>
+    <td class="lbCell" align="left"><b>Evaluation:</b></td>
+    <td class="bCell" align="left">6.7167</td>
+   </tr>   <tr>
+    <td class="lrtbCell" colspan="3" align="left"><ul><li><b>Evaluator: computer</b><ul><li>Program compiled</li><li>Test 'Basic test with sample input data': success<ul><li>result: 100.00 %, required: 100.00 %</li><li>Total run time: 0.001 s (limit: 1.000 s)</li><li>Mandatory test success, evaluation: 100.00 %</li></ul></li>
+<li>Test 'Borderline test': success<ul><li>result: 93.94 %, required: 25.00 %</li><li>Total run time: 0.003 s (limit: 2.000 s)</li><li>Optional test success, evaluation: 93.94 %</li><li>Failed (invalid output) <a href="javascript: unlockAdvice(&#39;?X=Unlock&amp;Cou=251&amp;Tgr=1587&amp;Tsk=1574&amp;Unl=L2960012&#39;)">[Unlock advice (67 B)]</a></li><li><input type="checkbox" name="cb_T2960013" onchange="CBpressed( &#39;T2960013&#39; )">&nbsp;Failed (invalid output)<div id="pre_T2960013" style="display: none; padding-left: 20px;"><pre> hyperloop ( 6750, 1, 2, 3, 1, &amp;c1, &amp;c2, &amp;c3 ) =&gt; r=949781, s=949780</pre></div></li></ul></li>
+<li>Test 'Random test': success<ul><li>result: 100.00 %, required: 25.00 %</li><li>Total run time: 0.026 s (limit: 1.997 s)</li><li>Optional test success, evaluation: 100.00 %</li></ul></li>
+<li>Test 'Bonus test (speed)': success<ul><li>result: 100.00 %, required: 100.00 %</li><li>Total run time: 0.444 s (limit: 2.000 s)</li><li>Bonus test - success, evaluation: 130.00 %</li></ul></li>
+<li>Overall ratio: 122.12 % (= 1.00 * 0.94 * 1.00 * 1.30)</li></ul></li><li>Advices used: 1</li><li>Penalty due to advices: None (1 &lt;= 2 limit)</li><li>Total percent: 122.12 %</li><li>Early submission bonus: 0.50</li><li>Total points: 1.22 * ( 5.00 + 0.50 ) = 6.72</li></ul></td>
+   </tr> <tr>
+  <td class="ltbCell" align="left"><b>SW metrics:</b></td>
+  <td class="rtbCell" colspan="2" align="left">
+   <table border="0" cellpadding="2">
+    <tbody><tr>
+     <td>&nbsp;</td>
+     <td class="ac">Total</td>
+     <td class="ac">Average</td>
+     <td class="ac">Maximum</td>
+     <td>Function name</td>
+    </tr>
+    <tr>
+     <td>Functions:</td>
+     <td class="ar"><b>6</b></td>
+     <td class="ar">--</td>
+     <td class="ar">--</td>
+     <td>--</td>
+    </tr>
+    <tr>
+     <td>Lines of code:</td>
+     <td class="ar"><b>152</b></td>
+     <td class="ar"><span class="textOk">25.33 ± 16.58</span></td>
+     <td class="ar"><span class="textOk">47</span></td>
+     <td><tt>count_for_two</tt></td>
+    </tr>
+    <tr>
+     <td>Cyclomatic complexity:</td>
+     <td class="ar"><b>50</b></td>
+     <td class="ar"><span class="textOk">8.33 ± 6.70</span></td>
+     <td class="ar"><span class="textOk">16</span></td>
+     <td><tt>main</tt></td>
+    </tr>
+   </tbody></table>
+  </td>
+ </tr>   </tbody></table>
+  </div>
+ </div> <br>
+ <div class="topLayout">
+  <div class="outBox">
+   <table width="100%" border="0" cellspacing="0" cellpadding="2" id="maintable">
+    <colgroup><col width="200">
+    <col>
+    <col width="130">
+
+   </colgroup><tbody><tr>
+    <td class="ltbHalfSepCell" align="left"><b>3</b></td>
+    <td class="tbHalfSepCell" align="left"><b>2018-11-15 23:27:08</b></td>
+    <td class="rtbHalfSepCell" align="center"><div class="but1 w120"><div class="but2"><a class="butLink" href="https://progtest.fit.cvut.cz/?X=TaskD&amp;Cou=251&amp;Tgr=1587&amp;Tsk=1574&amp;Sub=996241">Download</a></div></div></td>
+   </tr>
+   <tr>
+    <td class="ltCell" align="left"><b>Submission status:</b></td>
+    <td class="tCell" align="left">Evaluated</td>
+
+
+
+    <td class="rtbCell" rowspan="2">&nbsp;</td>
+
+
+   </tr>
+
+   <tr>
+    <td class="lbCell" align="left"><b>Evaluation:</b></td>
+    <td class="bCell" align="left">5.1150</td>
+   </tr>   <tr>
+    <td class="lrtbCell" colspan="3" align="left"><ul><li><b>Evaluator: computer</b><ul><li>Program compiled</li><li>Test 'Basic test with sample input data': success<ul><li>result: 100.00 %, required: 100.00 %</li><li>Total run time: 0.000 s (limit: 1.000 s)</li><li>Mandatory test success, evaluation: 100.00 %</li></ul></li>
+<li>Test 'Borderline test': success<ul><li>result: 93.94 %, required: 25.00 %</li><li>Total run time: 0.004 s (limit: 2.000 s)</li><li>Optional test success, evaluation: 93.94 %</li><li>Failed (invalid output) <a href="javascript: unlockAdvice(&#39;?X=Unlock&amp;Cou=251&amp;Tgr=1587&amp;Tsk=1574&amp;Unl=L2959913&#39;)">[Unlock advice (67 B)]</a></li><li>Failed (invalid output) <a href="javascript: unlockAdvice(&#39;?X=Unlock&amp;Cou=251&amp;Tgr=1587&amp;Tsk=1574&amp;Unl=L2959914&#39;)">[Unlock advice (82 B)]</a></li></ul></li>
+<li>Test 'Random test': success<ul><li>result: 99.00 %, required: 25.00 %</li><li>Total run time: 0.023 s (limit: 1.996 s)</li><li>Optional test success, evaluation: 99.00 %</li><li>Failed (invalid output) <a href="javascript: unlockAdvice(&#39;?X=Unlock&amp;Cou=251&amp;Tgr=1587&amp;Tsk=1574&amp;Unl=L2959915&#39;)">[Unlock advice (104 B)]</a></li></ul></li>
+<li>Test 'Bonus test (speed)': failed<ul><li>result: 90.00 %, required: 100.00 %</li><li>Total run time: 0.430 s (limit: 2.000 s)</li><li>Bonus test - failed, evaluation: No bonus awarded</li><li><input type="checkbox" name="cb_T2959916" onchange="CBpressed( &#39;T2959916&#39; )">&nbsp;Failed (invalid output)<div id="pre_T2959916" style="display: none; padding-left: 20px;"><pre> hyperloop ( 27666794, 111, 113, 86, 42, &amp;c1, &amp;c2, &amp;c3 ) =&gt; r=126084036, s=9079256848905003972</pre></div></li></ul></li>
+<li>Overall ratio: 93.00 % (= 1.00 * 0.94 * 0.99)</li></ul></li><li>Total percent: 93.00 %</li><li>Early submission bonus: 0.50</li><li>Total points: 0.93 * ( 5.00 + 0.50 ) = 5.12</li></ul></td>
+   </tr> <tr>
+  <td class="ltbCell" align="left"><b>SW metrics:</b></td>
+  <td class="rtbCell" colspan="2" align="left">
+   <table border="0" cellpadding="2">
+    <tbody><tr>
+     <td>&nbsp;</td>
+     <td class="ac">Total</td>
+     <td class="ac">Average</td>
+     <td class="ac">Maximum</td>
+     <td>Function name</td>
+    </tr>
+    <tr>
+     <td>Functions:</td>
+     <td class="ar"><b>6</b></td>
+     <td class="ar">--</td>
+     <td class="ar">--</td>
+     <td>--</td>
+    </tr>
+    <tr>
+     <td>Lines of code:</td>
+     <td class="ar"><b>152</b></td>
+     <td class="ar"><span class="textOk">25.33 ± 16.58</span></td>
+     <td class="ar"><span class="textOk">47</span></td>
+     <td><tt>count_for_two</tt></td>
+    </tr>
+    <tr>
+     <td>Cyclomatic complexity:</td>
+     <td class="ar"><b>49</b></td>
+     <td class="ar"><span class="textOk">8.17 ± 6.57</span></td>
+     <td class="ar"><span class="textOk">16</span></td>
+     <td><tt>main</tt></td>
+    </tr>
+   </tbody></table>
+  </td>
+ </tr>   </tbody></table>
+  </div>
+ </div> <br>
+ <div class="topLayout">
+  <div class="outBox">
+   <table width="100%" border="0" cellspacing="0" cellpadding="2" id="maintable">
+    <colgroup><col width="200">
+    <col>
+    <col width="130">
+
+   </colgroup><tbody><tr>
+    <td class="ltbHalfSepCell" align="left"><b>2</b></td>
+    <td class="tbHalfSepCell" align="left"><b>2018-11-15 22:29:09</b></td>
+    <td class="rtbHalfSepCell" align="center"><div class="but1 w120"><div class="but2"><a class="butLink" href="https://progtest.fit.cvut.cz/?X=TaskD&amp;Cou=251&amp;Tgr=1587&amp;Tsk=1574&amp;Sub=996150">Download</a></div></div></td>
+   </tr>
+   <tr>
+    <td class="ltCell" align="left"><b>Submission status:</b></td>
+    <td class="tCell" align="left">Evaluated</td>
+
+
+
+    <td class="rtbCell" rowspan="2">&nbsp;</td>
+
+
+   </tr>
+
+   <tr>
+    <td class="lbCell" align="left"><b>Evaluation:</b></td>
+    <td class="bCell" align="left">0.3438</td>
+   </tr>   <tr>
+    <td class="lrtbCell" colspan="3" align="left"><ul><li><b>Evaluator: computer</b><ul><li>Program compiled</li><li>Test 'Basic test with sample input data': success<ul><li>result: 100.00 %, required: 100.00 %</li><li>Total run time: 0.024 s (limit: 1.000 s)</li><li>Mandatory test success, evaluation: 100.00 %</li></ul></li>
+<li>Test 'Borderline test': Abnormal program termination  (Time limit exceeded)<ul><li>Cumulative test time exceeded, killed after:: 2.001 s (limit: 2.000 s)</li><li>Optional test failed, evaluation: 25.00 %</li></ul></li>
+<li>Test 'Random test': Not tested<ul><li>Optional test failed, evaluation: 25.00 %</li></ul></li>
+<li>Test 'Bonus test (speed)': Not tested<ul><li>Bonus test - failed, evaluation: No bonus awarded</li></ul></li>
+<li>Overall ratio: 6.25 % (= 1.00 * 0.25 * 0.25)</li></ul></li><li>Total percent: 6.25 %</li><li>Early submission bonus: 0.50</li><li>Total points: 0.06 * ( 5.00 + 0.50 ) = 0.34</li></ul></td>
+   </tr> <tr>
+  <td class="ltbCell" align="left"><b>SW metrics:</b></td>
+  <td class="rtbCell" colspan="2" align="left">
+   <table border="0" cellpadding="2">
+    <tbody><tr>
+     <td>&nbsp;</td>
+     <td class="ac">Total</td>
+     <td class="ac">Average</td>
+     <td class="ac">Maximum</td>
+     <td>Function name</td>
+    </tr>
+    <tr>
+     <td>Functions:</td>
+     <td class="ar"><b>6</b></td>
+     <td class="ar">--</td>
+     <td class="ar">--</td>
+     <td>--</td>
+    </tr>
+    <tr>
+     <td>Lines of code:</td>
+     <td class="ar"><b>137</b></td>
+     <td class="ar"><span class="textOk">22.83 ± 14.38</span></td>
+     <td class="ar"><span class="textOk">43</span></td>
+     <td><tt>hyperloop</tt></td>
+    </tr>
+    <tr>
+     <td>Cyclomatic complexity:</td>
+     <td class="ar"><b>41</b></td>
+     <td class="ar"><span class="textOk">6.83 ± 6.26</span></td>
+     <td class="ar"><span class="textOk">16</span></td>
+     <td><tt>main</tt></td>
+    </tr>
+   </tbody></table>
+  </td>
+ </tr>   </tbody></table>
+  </div>
+ </div> <br>
+ <div class="topLayout">
+  <div class="outBox">
+   <table width="100%" border="0" cellspacing="0" cellpadding="2" id="maintable">
+    <colgroup><col width="200">
+    <col>
+    <col width="130">
+
+   </colgroup><tbody><tr>
+    <td class="ltbHalfSepCell" align="left"><b>1</b></td>
+    <td class="tbHalfSepCell" align="left"><b>2018-11-15 22:18:48</b></td>
+    <td class="rtbHalfSepCell" align="center"><div class="but1 w120"><div class="but2"><a class="butLink" href="https://progtest.fit.cvut.cz/?X=TaskD&amp;Cou=251&amp;Tgr=1587&amp;Tsk=1574&amp;Sub=996131">Download</a></div></div></td>
+   </tr>
+   <tr>
+    <td class="ltCell" align="left"><b>Submission status:</b></td>
+    <td class="tCell" align="left">Evaluated</td>
+
+
+
+    <td class="rtbCell" rowspan="2">&nbsp;</td>
+
+
+   </tr>
+
+   <tr>
+    <td class="lbCell" align="left"><b>Evaluation:</b></td>
+    <td class="bCell" align="left">0.3094</td>
+   </tr>   <tr>
+    <td class="lrtbCell" colspan="3" align="left"><ul><li><b>Evaluator: computer</b><ul><li>Compile in 'pedantic' mode failed (10 % penalty). <a href="javascript: unlockAdvice(&#39;?X=Unlock&amp;Cou=251&amp;Tgr=1587&amp;Tsk=1574&amp;Unl=C1005717&#39;)">[Unlock advice (423 B)]</a></li><li>Test 'Basic test with sample input data': success<ul><li>result: 100.00 %, required: 100.00 %</li><li>Total run time: 0.025 s (limit: 1.000 s)</li><li>CPU time: 0.028 s (limit: 1.000 s)</li><li>Mandatory test success, evaluation: 100.00 %</li></ul></li>
+<li>Test 'Borderline test': Abnormal program termination  (Time limit exceeded)<ul><li>Cumulative test time exceeded, killed after:: 2.003 s (limit: 2.000 s)</li><li>Optional test failed, evaluation: 25.00 %</li></ul></li>
+<li>Test 'Random test': Not tested<ul><li>Optional test failed, evaluation: 25.00 %</li></ul></li>
+<li>Test 'Bonus test (speed)': Not tested<ul><li>Bonus test - failed, evaluation: No bonus awarded</li></ul></li>
+<li>Overall ratio: 5.62 % (= (1.00 * 0.25 * 0.25) * 0.9)</li></ul></li><li>Total percent: 5.62 %</li><li>Early submission bonus: 0.50</li><li>Total points: 0.06 * ( 5.00 + 0.50 ) = 0.31</li></ul></td>
+   </tr> <tr>
+  <td class="ltbCell" align="left"><b>SW metrics:</b></td>
+  <td class="rtbCell" colspan="2" align="left">
+   <table border="0" cellpadding="2">
+    <tbody><tr>
+     <td>&nbsp;</td>
+     <td class="ac">Total</td>
+     <td class="ac">Average</td>
+     <td class="ac">Maximum</td>
+     <td>Function name</td>
+    </tr>
+    <tr>
+     <td>Functions:</td>
+     <td class="ar"><b>6</b></td>
+     <td class="ar">--</td>
+     <td class="ar">--</td>
+     <td>--</td>
+    </tr>
+    <tr>
+     <td>Lines of code:</td>
+     <td class="ar"><b>138</b></td>
+     <td class="ar"><span class="textOk">23.00 ± 14.62</span></td>
+     <td class="ar"><span class="textOk">44</span></td>
+     <td><tt>hyperloop</tt></td>
+    </tr>
+    <tr>
+     <td>Cyclomatic complexity:</td>
+     <td class="ar"><b>41</b></td>
+     <td class="ar"><span class="textOk">6.83 ± 6.26</span></td>
+     <td class="ar"><span class="textOk">16</span></td>
+     <td><tt>main</tt></td>
+    </tr>
+   </tbody></table>
+  </td>
+ </tr>   </tbody></table>
+  </div>
+ </div>
+  </center>
+ </form>
+
+
+
+
+
+
+
+
+<script language="javascript" type="text/javascript">
+<!--
+
+var deadLine = new Date ( 1543186799 * 1000 );
+
+function CBpressed ( num )
+ {
+   var pre, cb;
+
+   cb = MM_findObj ( "cb_" + num );
+   pre = MM_findObj ( "pre_" + num );
+   if ( cb != null && pre != null )
+    {
+      pre . style . display = cb . checked ? "block" : "none";
+    }
+ }
+
+function unlockAdvice ( url )
+ {
+   if ( confirm ( 'The number of available advices is limited. Moreover, the use of advices may decrease the evaluation. Really unlock this advice?' ) )
+    this . location = url;
+ }
+
+function setCountdown ( )
+ {
+   var d = new Date ();
+   var x = ( deadLine . getTime () - d . getTime () );
+   var tgt = document . getElementById ( "countdown" );
+
+   if ( x > 0 )
+    {
+      var s = Math . floor ( x / 1000 );
+      var ms = (x % 1000) + "";
+
+      while ( ms . length  < 3 ) ms = "0" + ms;
+
+      tgt . innerHTML = s + "." + ms + " sec";
+
+      window . setTimeout ( setCountdown, 117 );
+    }
+   else
+    {
+      tgt . innerHTML = '&nbsp;';
+    }
+ }
+
+function showRefSolution ( )
+ {
+   var t = document . getElementById ( "reftable" );
+   var x = document . getElementsByName ( "SHOW_REF" )[0];
+
+   if ( ! x ) return;
+   var r1 = t . rows[1], r2 = t . rows[2];
+
+   if ( x . checked )
+    {
+      r1 . style . display = "";
+      if ( r2 ) r2 . style . display = "";
+    }
+   else
+    {
+      r1 . style . display = "none";
+      if ( r2 ) r2 . style . display = "none";
+    }
+ }
+
+
+setCountdown ();
+showRefSolution ();
+
+// -->
+</script>
+
+
+
+
+
+ 
+
+<!-- Template run time: 0.057313203811646 sec -->
+<div class="nsc-panel nsc-panel-compact nsc-hide">
+    <div class="nsc-panel-move"></div>
+    <div class="nsc-panel-tooltip">
+        <div class="nsc-panel-tooltip-layout" layout="row" layout-align="start center">CTRL+V to toggle the panel</div>
+    </div>
+
+    <div class="nsc-panel-layout" flex="" layout="row" layout-align="start center">
+        <div class="nsc-panel-groups" flex="" layout="row" layout-align="start start">
+
+            <!-- group -->
+            <div class="nsc-panel-group" flex="none" layout="row" layout-align="start start">
+                <div class="nsc-panel-button separated active">
+                    <div class="nsc-panel-select" flex="" layout="row">
+                        <div class="nsc-panel-text nsc-noselect" flex="" layout="row" layout-align="center center">
+                            <span class="nsc-icon nsc-icon-cursor-normal" data-i18n="videoPanelSimpleCursor" data-event="nimbus-editor-active-tools" data-event-param="cursorDefault">&nbsp;</span>
+                        </div>
+                        <div class="nsc-panel-trigger">
+                            <span class="nsc-icon nsc-icon-arrow">&nbsp;</span>
+                        </div>
+                    </div>
+                    <div class="nsc-panel-dropdown to-top">
+                        <ul flex="" layout="row" layout-align="start center">
+                            <li class="nsc-panel-dropdown-icon" flex="" layout="row" layout-align="start center">
+                                <span class="nsc-icon nsc-icon-cursor-shade" data-i18n="videoPanelFocusMouse" data-event="nimbus-editor-active-tools" data-event-param="cursorShadow">&nbsp;</span>
+                            </li>
+                            <li class="nsc-panel-dropdown-icon" flex="" layout="row" layout-align="start center">
+                                <span class="nsc-icon nsc-icon-cursor-circle" data-i18n="videoPanelAnimatedCursor" data-event="nimbus-editor-active-tools" data-event-param="cursorRing">&nbsp;</span>
+                            </li>
+                            <!--<li class="nsc-panel-dropdown-icon " flex layout="row" layout-align="start center">-->
+                            <!--<span class="nsc-icon nsc-icon-cursor-tail"></span>-->
+                            <!--</li>-->
+                            <!--<li class="nsc-panel-dropdown-icon " flex layout="row" layout-align="start center">-->
+                            <!--<span class="nsc-icon nsc-icon-cursor-long"></span>-->
+                            <!--</li>-->
+                            <li class="nsc-panel-dropdown-icon" flex="" layout="row" layout-align="start center">
+                                <span class="nsc-icon nsc-icon-cursor-normal" data-i18n="videoPanelSimpleCursor" data-event="nimbus-editor-active-tools" data-event-param="cursorDefault">&nbsp;</span>
+                            </li>
+                            <!--<li class="nsc-panel-dropdown-icon" flex layout="row" layout-align="start center">-->
+                            <!--<span class="nsc-icon nsc-icon-cursor-none" data-event="nimbus-editor-active-tools" data-event-param="cursorNone"></span>-->
+                            <!--</li>-->
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!-- /group -->
+
+            <!-- group -->
+            <div class="nsc-panel-group" flex="none" layout="row" layout-align="start start">
+                <button class="nsc-panel-button" type="button">
+                    <span class="nsc-icon nsc-icon-pen" data-i18n="videoPanelPen" data-event="nimbus-editor-active-tools" data-event-param="pen">&nbsp;</span>
+                </button>
+                <button class="nsc-panel-button" type="button">
+                    <span class="nsc-icon nsc-icon-arrow-line" data-i18n="videoPanelArrow" data-event="nimbus-editor-active-tools" data-event-param="arrow">&nbsp;</span>
+                </button>
+                <button class="nsc-panel-button" type="button">
+                    <span class="nsc-icon nsc-icon-square" data-i18n="videoPanelSquare" data-event="nimbus-editor-active-tools" data-event-param="square">&nbsp;</span>
+                </button>
+                <div class="nsc-panel-button separated">
+                    <div class="nsc-panel-select" flex="" layout="row">
+                        <div class="nsc-panel-text nsc-noselect" flex="" layout="row" layout-align="center center">
+                            <span class="nsc-icon nsc-icon-attention" data-i18n="videoPanelMark" data-event="nimbus-editor-active-tools" data-event-param="notifRed">&nbsp;</span>
+                        </div>
+                        <div class="nsc-panel-trigger">
+                            <span class="nsc-icon nsc-icon-arrow">&nbsp;</span>
+                        </div>
+                    </div>
+                    <div class="nsc-panel-dropdown to-top">
+                        <ul flex="" layout="row" layout-align="start center">
+                            <li class="nsc-panel-dropdown-icon" flex="" layout="row" layout-align="start center">
+                                <span class="nsc-icon nsc-icon-attention" data-i18n="videoPanelMark" data-event="nimbus-editor-active-tools" data-event-param="notifRed">&nbsp;</span>
+                            </li>
+                            <li class="nsc-panel-dropdown-icon" flex="" layout="row" layout-align="start center">
+                                <span class="nsc-icon nsc-icon-question" data-i18n="videoPanelQuestion" data-event="nimbus-editor-active-tools" data-event-param="notifBlue">&nbsp;</span>
+                            </li>
+                            <li class="nsc-panel-dropdown-icon" flex="" layout="row" layout-align="start center">
+                                <span class="nsc-icon nsc-icon-done" data-i18n="videoPanelCheckmark" data-event="nimbus-editor-active-tools" data-event-param="notifGreen">&nbsp;</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="nsc-panel-button assembled">
+                    <div class="nsc-panel-select" flex="" layout="row">
+                        <div class="nsc-panel-text nsc-noselect" flex="" layout="row" layout-align="center center">
+							<span class="nsc-icon nsc-icon-fill-none nsc-panel-icon-fill">
+								<span class="nsc-panel-icon-fill-inner" id="nsc_panel_button_colors" style="background:#00FF00;" data-event="nimbus-editor-active-color" data-event-param="#00FF00">&nbsp;</span>
+							</span>
+                        </div>
+                        <div class="nsc-panel-trigger">
+                            <span class="nsc-icon nsc-icon-arrow">&nbsp;</span>
+                        </div>
+                    </div>
+                    <div class="nsc-panel-dropdown">
+                        <div class="nsc-panel-drop-area">
+                            <div class="nsc-panel-colors">
+
+                                <!-- picked -->
+                                <div class="nsc-colors-picked">
+                                    <div class="nsc-colors-picked-layout" flex="" layout="row" layout-align="start start" layout-wrap="">
+                                        <div class="nsc-colors-picked-item">
+                                            <button class="nsc-colors-picked-button" type="button" data-event="nimbus-editor-active-color" data-event-param="#000000">
+                                                <span class="nsc-colors-picked-button-inner" style="background: #000000;">&nbsp;</span>
+                                            </button>
+                                        </div>
+                                        <div class="nsc-colors-picked-item">
+                                            <button class="nsc-colors-picked-button" type="button" data-event="nimbus-editor-active-color" data-event-param="#0000FF">
+                                                <span class="nsc-colors-picked-button-inner" style="background: #0000FF;">&nbsp;</span>
+                                            </button>
+                                        </div>
+                                        <div class="nsc-colors-picked-item">
+                                            <button class="nsc-colors-picked-button" type="button" data-event="nimbus-editor-active-color" data-event-param="#FF00FF">
+                                                <span class="nsc-colors-picked-button-inner" style="background: #FF00FF;">&nbsp;</span>
+                                            </button>
+                                        </div>
+                                        <div class="nsc-colors-picked-item">
+                                            <button class="nsc-colors-picked-button" type="button" data-event="nimbus-editor-active-color" data-event-param="#00FFFF">
+                                                <span class="nsc-colors-picked-button-inner" style="background: #00FFFF;">&nbsp;</span>
+                                            </button>
+                                        </div>
+                                        <div class="nsc-colors-picked-item">
+                                            <button class="nsc-colors-picked-button" type="button" data-event="nimbus-editor-active-color" data-event-param="#00FF00">
+                                                <span class="nsc-colors-picked-button-inner" style="background: #00FF00;">&nbsp;</span>
+                                            </button>
+                                        </div>
+                                        <div class="nsc-colors-picked-item">
+                                            <button class="nsc-colors-picked-button" type="button" data-event="nimbus-editor-active-color" data-event-param="#FFFF00">
+                                                <span class="nsc-colors-picked-button-inner" style="background: #FFFF00;">&nbsp;</span>
+                                            </button>
+                                        </div>
+                                        <div class="nsc-colors-picked-item">
+                                            <button class="nsc-colors-picked-button" type="button" data-event="nimbus-editor-active-color" data-event-param="#FF0000">
+                                                <span class="nsc-colors-picked-button-inner" style="background: #FF0000;">&nbsp;</span>
+                                            </button>
+                                        </div>
+                                        <div class="nsc-colors-picked-item">
+                                            <button class="nsc-colors-picked-button" type="button" data-event="nimbus-editor-active-color" data-event-param="#FFFFFF">
+                                                <span class="nsc-colors-picked-button-inner" style="background: #FFFFFF;">&nbsp;</span>
+                                            </button>
+                                        </div>
+                                        <!--<div class="nsc-colors-picked-item">-->
+                                        <!--<button class="nsc-colors-picked-button custom" type="button"> -->
+                                        <!--<i class="nsc-icon ic-color-custom"></i> -->
+                                        <!--</button>-->
+                                        <!--</div>-->
+                                    </div>
+                                </div>
+                                <!-- /picked -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /group -->
+
+            <!-- group -->
+            <div class="nsc-panel-group" flex="none" layout="row" layout-align="start start">
+                <button class="nsc-panel-button nsc-hide" type="button">
+                    <span class="nsc-icon nsc-icon-eraser" data-i18n="videoPanelClear" data-event="nimbus-editor-active-tools" data-event-param="clear">&nbsp;</span>
+                </button>
+                <button class="nsc-panel-button" type="button">
+                    <span class="nsc-icon nsc-icon-eraser-all" data-i18n="videoPanelClearAll" data-event="nimbus-editor-active-tools" data-event-param="clearAll">&nbsp;</span>
+                </button>
+                <button class="nsc-panel-button" type="button">
+                    <span class="nsc-icon nsc-icon-webcam" data-i18n="videoPanelCamera" id="nimbus_web_camera_toggle">&nbsp;</span>
+                </button>
+            </div>
+            <!-- /group -->
+        </div>
+
+        <div class="nsc-panel-actions" flex="none" layout="row" layout-align="start center">
+            <button class="nsc-panel-button big" type="button" id="nsc_panel_button_play" style="display: none;">
+                <span class="nsc-icon nsc-icon-play">&nbsp;</span>
+            </button>
+            <button class="nsc-panel-button big" type="button" id="nsc_panel_button_pause">
+                <span class="nsc-icon nsc-icon-pause">&nbsp;</span>
+            </button>
+            <button class="nsc-panel-button big" type="button" id="nsc_panel_button_stop">
+                <span class="nsc-icon nsc-icon-stop">&nbsp;</span>
+            </button>
+        </div>
+
+        <!-- panel togglers -->
+        <div class="nsc-panel-togglers" layout="row" layout-align="start center" flex="none">
+            <button class="nsc-panel-toggle-button" type="button">
+                <span class="nsc-icon nsc-icon-panel-close" data-i18n="videoPanelHideShowPanel">&nbsp;</span>
+            </button>
+        </div>
+        <!-- /panel togglers -->
+
+    </div>
+</div>
+<div class="nsc-video-editor nsc-hide"></div><div class="nsc-content-camera nsc-hide">
+    <div class="nsc-content-camera-buttons" flex="none" layout="row" layout-align="start start">
+        <button class="nsc-content-camera-button" type="button" id="nsc_video_camera_collapse" style="display: none">
+            <span class="nsc-icon nsc-icon-panel-collapse"></span>
+        </button>
+        <button class="nsc-content-camera-button" type="button" id="nsc_video_camera_expand">
+            <span class="nsc-icon nsc-icon-panel-expand"></span>
+        </button>
+        <button class="nsc-content-camera-button" type="button" id="nsc_video_camera_close">
+            <span class="nsc-icon nsc-icon-panel-close"></span>
+        </button>
+    </div>
+    <div class="nsc-content-camera-container">
+        <div class="nsc-content-camera-shadow"></div>
+    </div>
+</div>
+</body></html>
